@@ -4,10 +4,14 @@
 </head>
 <body>
  <% include partials/_header %>
+
 <p>
 <% for (keys in urls) { %>
-  <%= keys %><%= urls[keys];  %>
+  <form method="POST" action="/urls/<%=keys%>/delete"><%= keys %> <%= urls[keys];  %><input type="submit" value="Delete"></form>
 <% } %>
 </p>
+
 </body>
 </html>
+
+
