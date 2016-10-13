@@ -11,7 +11,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var urlDatabase = {
   "pppppp": "http://www.lighthouselabs.ca",
   "9sm5xK": "http://www.google.com",
-  "l9ld44": "www.cbc.ca"
 };
 
 function generateRandomString() {
@@ -41,12 +40,13 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
-  console.log(req.body);  // debug statement to see POST parameters
-  res.send("Ok");         // Respond with 'Ok' (we will replace this)
+  urlDatabase[generateRandomString()] = req.body.addedLongURL;
+  res.redirect('/urls');
 });
 
 app.get("/urls/:id", (req, res) => {
-  var templateVars = { shortURL: req.params.id };
+  var longURL = urlDatabase[req.params.id];
+  var templateVars = { shortURL: req.params.id, website: longURL };
   res.render("urls_show", templateVars);
 });
 
@@ -58,6 +58,14 @@ app.get("/u/:shortURL", (req, res) => {
 
 app.post("/urls/:id/delete", (req, res) => {
   delete urlDatabase[req.params.id];
+  res.redirect(302, "/urls");
+});
+
+app.post("/urls/:id/update", (req, res) => {
+  var templateVars = { urls: urlDatabase };
+  var id = req.params.id;
+  urlDatabase[id] = req.body.longURLreplace;
+  res.send("urls/:id/update", templateVars);
   res.redirect(302, "/urls");
 });
 

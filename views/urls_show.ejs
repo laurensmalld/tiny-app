@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-  <a href = "/urls" ><%= Click here to display shortened links! %></a>
-  <!-- Write EJS code here to display shortened links -->
-</body>
+
+<h1 style="color:green"> Update your URL below...</h1>
+
+<h3>You are updating the short URL </h3>
+
+  <form action="/urls/:id/update" method="POST" style="margin:150px;">
+    <label for="newLongURL">Enter the new URL here:</label>
+    <input id="longURLreplace" type="text" name="longURLreplace" placeholder="http://" style="width: 300px">
+    <input type="submit" value="Submit">
+  </body>
 </html>
+

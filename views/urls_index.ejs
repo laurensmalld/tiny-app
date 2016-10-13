@@ -7,7 +7,9 @@
 
 <p>
 <% for (keys in urls) { %>
-  <form method="POST" action="/urls/<%=keys%>/delete"><%= keys %> <%= urls[keys];  %><input type="submit" value="Delete"></form>
+  <form method="POST" action="/urls/<%=keys%>/delete"><%= keys %> <%= urls[keys];  %>
+  <a href = "/urls/<%= keys %>/update">Edit</a>
+  <input type="submit" value="Delete"></form>
 <% } %>
 </p>
 
