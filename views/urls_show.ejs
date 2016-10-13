@@ -4,12 +4,13 @@
 
 <h1 style="color:green"> Update your URL below...</h1>
 
-<h3>You are updating the short URL </h3>
+<h3>You are updating the short URL <%= shortURL %> </h3>
 
-  <form action="/urls/:id/update" method="POST" style="margin:150px;">
+  <form action="/urls/<%= shortURL %>/update" method="POST" style="margin:150px;">
     <label for="newLongURL">Enter the new URL here:</label>
     <input id="longURLreplace" type="text" name="longURLreplace" placeholder="http://" style="width: 300px">
     <input type="submit" value="Submit">
+    </form>
   </body>
 </html>
 

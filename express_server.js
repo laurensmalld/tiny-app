@@ -3,6 +3,8 @@ var app = express();
 
 app.set("view engine", "ejs");
 
+var cookieParser = require("cookie-parser");
+
 var PORT = process.env.PORT || 8080; // default port 8080
 
 var bodyParser = require("body-parser");
@@ -56,17 +58,31 @@ app.get("/u/:shortURL", (req, res) => {
   res.redirect(302, longURL);
 });
 
+//delete short and long urls
 app.post("/urls/:id/delete", (req, res) => {
   delete urlDatabase[req.params.id];
   res.redirect(302, "/urls");
 });
 
+//update long url
 app.post("/urls/:id/update", (req, res) => {
-  var templateVars = { urls: urlDatabase };
+  var longURLreplace = req.body.longURLreplace;
   var id = req.params.id;
-  urlDatabase[id] = req.body.longURLreplace;
-  res.send("urls/:id/update", templateVars);
+  urlDatabase[id] = longURLreplace;
   res.redirect(302, "/urls");
+});
+
+ var templateVars = {
+  username: req.cookies["username"],
+  //password: req.cookies["password"],
+};
+
+//track and show login
+app.post("/login", (req, res) => {
+  res.cookie('username');
+
+  res.render("index", templateVars);
+  res.redirect(302, "/");
 });
 
 app.listen(PORT, () => {
