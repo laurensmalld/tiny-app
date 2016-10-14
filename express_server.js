@@ -4,6 +4,7 @@ var app = express();
 app.set("view engine", "ejs");
 
 var cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 var PORT = process.env.PORT || 8080; // default port 8080
 
@@ -33,12 +34,13 @@ app.get("/urls.json", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-  var templateVars = { urls: urlDatabase };
+  var templateVars = { urls: urlDatabase , username: req.cookies["username"] };
   res.render("urls_index", templateVars);
 });
 
 app.get("/urls/new", (req, res) => {
-  res.render("urls_new");
+  var templateVars = {username: req.cookies["username"]};
+  res.render("urls_new", templateVars);
 });
 
 app.post("/urls", (req, res) => {
@@ -72,16 +74,23 @@ app.post("/urls/:id/update", (req, res) => {
   res.redirect(302, "/urls");
 });
 
- var templateVars = {
-  username: req.cookies["username"],
+//pass username to pages with headers
+//var templateVars = {
+  //username: req.cookies["username"]
   //password: req.cookies["password"],
-};
+//};
+//res.render("index", templateVars);
+//res.render("urls_new", templateVars);
 
 //track and show login
-app.post("/login", (req, res) => {
-  res.cookie('username');
 
-  res.render("index", templateVars);
+app.post("/login", (req, res) => {
+  res.cookie("username", req.body.username);
+  res.redirect(302, "/");
+});
+
+app.post("/logout", (req, res) =>{
+  res.clearCookie("username", req.body.username);
   res.redirect(302, "/");
 });
 
