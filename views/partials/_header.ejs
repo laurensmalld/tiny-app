@@ -1,14 +1,13 @@
 
 <h3> Welcome </h3>
 
-<form action= "/logout" method= "POST" style="margin:150px;">
-<% if (username) { %>
-<%= username
-<input type="submit" value="Logout">
-</form>
-<%}else { %>
-<form action="/login" method="POST" style="margin:150px;">
-<input id="username" type="text" name="username" placeholder="Enter your username..." style="width: 300px">
-<input type="submit" value="Submit">
-</form>
-
+<%if(username){%>
+  <form method="POST" action="/logout"><%=username %>
+  <input type="submit" value="Log Out"/>
+  </form>
+  <%}else{%>
+<form method="POST" action="/login">
+    <input type ="text" name="username" placeholder="sign in"/>
+    <input type ="submit" value="Log In" />
+    <%}%>
+    </form>

@@ -74,16 +74,7 @@ app.post("/urls/:id/update", (req, res) => {
   res.redirect(302, "/urls");
 });
 
-//pass username to pages with headers
-//var templateVars = {
-  //username: req.cookies["username"]
-  //password: req.cookies["password"],
-//};
-//res.render("index", templateVars);
-//res.render("urls_new", templateVars);
-
-//track and show login
-
+// login and logout
 app.post("/login", (req, res) => {
   res.cookie("username", req.body.username);
   res.redirect(302, "/");
