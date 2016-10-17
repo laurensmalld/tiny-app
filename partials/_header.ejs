@@ -1,0 +1,16 @@
+
+<h3> Welcome </h3>
+
+<%if(email){%>
+  <form method="POST" action="/logout"><%=email %>
+  <input type="submit" value="Log Out"/>
+  </form>
+ <%}else{%>
+<
+<form method="POST" action="/login">
+    <input type ="submit" value="Click here to Log In" />
+
+<form method="GET" action="/register">
+    <input type ="submit" value="Click here to register" />
+    <%}%>
+    </form>
